@@ -31,9 +31,9 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" style={{ padding: "100px 0", background: "radial-gradient(ellipse 80% 50% at 50% -5%, rgba(59,130,246,0.10) 0%, transparent 65%), #0a0a0a" }}>
+    <section id="contact" style={{ padding: "clamp(56px,9vw,100px) 0", background: "radial-gradient(ellipse 80% 50% at 50% -5%, rgba(59,130,246,0.10) 0%, transparent 65%), #0a0a0a" }}>
       <div style={{ height: 1, background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent)" }} />
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px 0" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "clamp(28px,7vw,80px) clamp(16px,3vw,24px) 0" }}>
 
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
           style={{ textAlign: "center", marginBottom: 64 }}>
@@ -88,7 +88,7 @@ export default function Contact() {
           {/* Form */}
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}>
-            <div style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: 36 }}>
+            <div style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: "clamp(20px,3vw,36px)" }}>
               <div style={{ height: 1, background: "linear-gradient(90deg,transparent,rgba(59,130,246,0.5),transparent)", marginBottom: 32 }} />
               <AnimatePresence mode="wait">
                 {sent ? (

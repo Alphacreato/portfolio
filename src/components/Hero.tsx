@@ -30,7 +30,7 @@ export default function Hero() {
     }}>
       <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
 
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px", width: "100%", position: "relative", zIndex: 1 }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "clamp(28px,7vw,80px) clamp(16px,3vw,24px)", width: "100%", position: "relative", zIndex: 1 }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 40, alignItems: "center" }} className="hero-grid">
 
           {/* Text */}
@@ -71,7 +71,7 @@ export default function Hero() {
               </button>
             </div>
 
-            <div style={{ display: "flex", gap: 48, paddingTop: 32, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+            <div className="hero-stats" style={{ display: "flex", gap: 48, paddingTop: 32, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
               {[["4+", "Years Experience"], ["15+", "Projects Built"], ["10+", "Happy Clients"]].map(([n, l]) => (
                 <div key={l}>
                   <div style={{ fontSize: 32, fontWeight: 900, color: "#fff", fontFamily: "Inter,sans-serif" }}>{n}</div>

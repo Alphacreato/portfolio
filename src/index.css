@@ -17,7 +17,7 @@
 
 /* ── Base ──────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
   background: #0a0a0a;
@@ -246,12 +246,15 @@ body {
 
 /* ── Responsive grids ──────────────────────────────── */
 @media (max-width: 900px) {
-  .about-grid    { grid-template-columns: 1fr !important; }
+  .about-grid    { grid-template-columns: 1fr !important; gap: 40px !important; }
   .skills-grid   { grid-template-columns: 1fr !important; }
   .projects-grid { grid-template-columns: 1fr !important; }
   .contact-grid  { grid-template-columns: 1fr !important; }
   .code-card-wrap { display: none !important; }
   .form-row      { grid-template-columns: 1fr !important; }
+  .hero-grid     { grid-template-columns: 1fr !important; gap: 0 !important; }
+  .float-badge   { display: none !important; }
+  .hero-stats    { gap: 28px !important; flex-wrap: wrap !important; }
 }
 
 @media (min-width: 901px) {

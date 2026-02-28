@@ -8,9 +8,9 @@ const CATS = [
 
 export default function Skills() {
   return (
-    <section id="skills" style={{ padding: "100px 0", background: "#050505" }}>
+    <section id="skills" style={{ padding: "clamp(56px,9vw,100px) 0", background: "#050505" }}>
       <div style={{ height: 1, background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent)" }} />
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px 0" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "clamp(28px,7vw,80px) clamp(16px,3vw,24px) 0" }}>
 
         <motion.div initial={{ opacity:0,y:24 }} whileInView={{ opacity:1,y:0 }} viewport={{ once:true }} transition={{ duration:0.6 }}
           style={{ marginBottom: 56 }}>

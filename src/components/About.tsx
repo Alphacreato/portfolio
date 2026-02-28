@@ -28,9 +28,9 @@ export default function About() {
   });
 
   return (
-    <section id="about" style={{ padding: "100px 0", background: "radial-gradient(ellipse 60% 60% at 90% 50%, rgba(59,130,246,0.05) 0%, transparent 70%), #0a0a0a" }}>
+    <section id="about" style={{ padding: "clamp(56px,9vw,100px) 0", background: "radial-gradient(ellipse 60% 60% at 90% 50%, rgba(59,130,246,0.05) 0%, transparent 70%), #0a0a0a" }}>
       <div style={{ height: 1, background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent)" }} />
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 24px 0" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "clamp(28px,7vw,80px) clamp(16px,3vw,24px) 0" }}>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }} className="about-grid">
 
@@ -72,6 +72,7 @@ export default function About() {
 
               {/* Float badge */}
               <motion.div animate={{ y: [0, -8, 0] }} transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                className="float-badge"
                 style={{ position: "absolute", bottom: -20, right: -16, background: "rgba(10,10,10,0.96)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.09)", borderRadius: 14, padding: "14px 20px", boxShadow: "0 16px 40px rgba(0,0,0,0.5)" }}>
                 <div style={{ fontSize: 10, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 600 }}>Experience</div>
                 <div style={{ fontSize: 26, fontWeight: 900, color: "#3b82f6", marginTop: 2, fontFamily: "Inter,sans-serif" }}>4+ years</div>
