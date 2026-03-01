@@ -35,8 +35,8 @@ export default function About() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }} className="about-grid">
 
           {/* Visual */}
-          <motion.div {...fade(0)}>
-            <div style={{ position: "relative", maxWidth: 400, width: "100%" }}>
+          <motion.div {...fade(0)} style={{ minWidth: 0 }}>
+            <div style={{ position: "relative", maxWidth: 400, width: "100%", margin: "0 auto" }}>
               <div style={{
                 aspectRatio: "1", borderRadius: 20,
                 background: "#111111",
@@ -81,7 +81,7 @@ export default function About() {
           </motion.div>
 
           {/* Text */}
-          <div>
+          <div style={{ minWidth: 0 }}>
             <motion.div {...fade(0.1)}>
               <span className="tag-badge" style={{ marginBottom: 20, display: "inline-flex" }}>About Me</span>
             </motion.div>
@@ -131,7 +131,7 @@ export default function About() {
                   <span style={{ fontSize: 20, flexShrink: 0 }}>{icon}</span>
                   <div>
                     <div style={{ fontSize: 10, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 600 }}>{title}</div>
-                    <div style={{ fontSize: 13, color: "#fff", fontWeight: 600, marginTop: 2 }}>{val}</div>
+                    <div style={{ fontSize: 13, color: "#fff", fontWeight: 600, marginTop: 2, overflowWrap: "break-word", wordBreak: "break-all" }}>{val}</div>
                     <div style={{ fontSize: 11, color: "#a1a1aa", marginTop: 1 }}>{note}</div>
                   </div>
                 </div>
