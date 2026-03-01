@@ -31,17 +31,17 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" style={{ padding: "clamp(56px,9vw,100px) 0", background: "radial-gradient(ellipse 80% 50% at 50% -5%, rgba(59,130,246,0.10) 0%, transparent 65%), #0a0a0a" }}>
-      <div style={{ height: 1, background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent)" }} />
+    <section id="contact" style={{ padding: "clamp(56px,9vw,100px) 0", background: "radial-gradient(ellipse 80% 50% at 50% -5%, rgba(59,130,246,0.10) 0%, transparent 65%), var(--color-bg)", transition: "background 0.3s" }}>
+      <div style={{ height: 1, background: "linear-gradient(90deg,transparent,var(--color-divider),transparent)" }} />
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "clamp(28px,7vw,80px) clamp(16px,3vw,24px) 0" }}>
 
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
           style={{ textAlign: "center", marginBottom: 64 }}>
           <span className="tag-badge" style={{ marginBottom: 20, display: "inline-flex" }}>Get In Touch</span>
-          <h2 style={{ fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 900, letterSpacing: "-0.02em", marginBottom: 16, fontFamily: "Inter,sans-serif" }}>
+          <h2 style={{ fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 900, letterSpacing: "-0.02em", marginBottom: 16, fontFamily: "Inter,sans-serif", color: "var(--color-text-primary)" }}>
             Let's work <span className="gradient-text">together</span>
           </h2>
-          <p style={{ color: "#a1a1aa", maxWidth: 400, margin: "0 auto", fontSize: 16 }}>
+          <p style={{ color: "var(--color-text-secondary)", maxWidth: 400, margin: "0 auto", fontSize: 16 }}>
             Have a project? Drop a message — I reply within 24 hours.
           </p>
         </motion.div>
@@ -60,20 +60,19 @@ export default function Contact() {
               <div key={title} className="info-card">
                 <div style={{ width: 40, height: 40, borderRadius: 10, background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>{icon}</div>
                 <div>
-                  <div style={{ fontSize: 10, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 600 }}>{title}</div>
-                  <div style={{ color: "#fff", fontSize: 13, fontWeight: 600, marginTop: 3 }}>{val}</div>
-                  <div style={{ color: "#a1a1aa", fontSize: 12, marginTop: 2 }}>{note}</div>
+                  <div style={{ fontSize: 10, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 600 }}>{title}</div>
+                  <div style={{ color: "var(--color-text-primary)", fontSize: 13, fontWeight: 600, marginTop: 3 }}>{val}</div>
+                  <div style={{ color: "var(--color-text-secondary)", fontSize: 12, marginTop: 2 }}>{note}</div>
                 </div>
               </div>
             ))}
 
-            {/* Real social links */}
             <div style={{ marginTop: 8 }}>
-              <div style={{ fontSize: 10, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 600, marginBottom: 12 }}>Find me online</div>
+              <div style={{ fontSize: 10, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 600, marginBottom: 12 }}>Find me online</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 {SOCIALS.map(s => (
                   <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                    style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", borderRadius: 10, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", color: "#a1a1aa", textDecoration: "none", fontSize: 13, fontWeight: 500, transition: "all 0.2s" }}>
+                    style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", borderRadius: 10, background: "var(--color-card)", border: "1px solid var(--color-border)", color: "var(--color-text-secondary)", textDecoration: "none", fontSize: 13, fontWeight: 500, transition: "all 0.2s" }}>
                     <span style={{ color: "#3b82f6" }}>{s.icon}</span>
                     {s.label}
                     <svg style={{ marginLeft: "auto" }} width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -88,31 +87,31 @@ export default function Contact() {
           {/* Form */}
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}>
-            <div style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: "clamp(20px,3vw,36px)" }}>
+            <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", borderRadius: 20, padding: "clamp(20px,3vw,36px)", transition: "background 0.3s, border-color 0.3s" }}>
               <div style={{ height: 1, background: "linear-gradient(90deg,transparent,rgba(59,130,246,0.5),transparent)", marginBottom: 32 }} />
               <AnimatePresence mode="wait">
                 {sent ? (
                   <motion.div key="ok" initial={{ opacity: 0, scale: .95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
                     style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "60px 0", gap: 16, textAlign: "center" }}>
                     <div style={{ width: 64, height: 64, borderRadius: 20, background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28 }}>🎉</div>
-                    <div style={{ fontWeight: 800, fontSize: 20, color: "#fff", fontFamily: "Inter,sans-serif" }}>Message Sent!</div>
-                    <div style={{ color: "#a1a1aa", fontSize: 14 }}>Thanks! I'll get back to you within 24 hours.</div>
+                    <div style={{ fontWeight: 800, fontSize: 20, color: "var(--color-text-primary)", fontFamily: "Inter,sans-serif" }}>Message Sent!</div>
+                    <div style={{ color: "var(--color-text-secondary)", fontSize: 14 }}>Thanks! I'll get back to you within 24 hours.</div>
                   </motion.div>
                 ) : (
                   <motion.form key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} onSubmit={submit}
                     style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }} className="form-row">
                       <div>
-                        <label style={{ display: "block", fontSize: 11, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 600, marginBottom: 8 }}>Name</label>
+                        <label style={{ display: "block", fontSize: 11, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 600, marginBottom: 8 }}>Name</label>
                         <input className="form-input" required placeholder="Your name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
                       </div>
                       <div>
-                        <label style={{ display: "block", fontSize: 11, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 600, marginBottom: 8 }}>Email</label>
+                        <label style={{ display: "block", fontSize: 11, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 600, marginBottom: 8 }}>Email</label>
                         <input className="form-input" type="email" required placeholder="you@email.com" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
                       </div>
                     </div>
                     <div>
-                      <label style={{ display: "block", fontSize: 11, color: "#52525b", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 600, marginBottom: 8 }}>Message</label>
+                      <label style={{ display: "block", fontSize: 11, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 600, marginBottom: 8 }}>Message</label>
                       <textarea className="form-input" rows={5} required placeholder="Tell me about your project..." style={{ resize: "none" }} value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} />
                     </div>
                     <button type="submit" disabled={loading} className="btn-primary" style={{ justifyContent: "center", width: "100%", padding: "15px", fontSize: 16 }}>

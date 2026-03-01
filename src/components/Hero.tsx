@@ -26,9 +26,10 @@ export default function Hero() {
     <section style={{
       minHeight: "100vh", display: "flex", alignItems: "center",
       paddingTop: 68, position: "relative", overflow: "hidden",
-      background: "radial-gradient(ellipse 80% 50% at 50% -5%, rgba(59,130,246,0.14) 0%, transparent 65%), #0a0a0a",
+      background: "radial-gradient(ellipse 80% 50% at 50% -5%, rgba(59,130,246,0.14) 0%, transparent 65%), var(--color-bg)",
+      transition: "background 0.3s",
     }}>
-      <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "radial-gradient(var(--color-dot) 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
 
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "clamp(28px,7vw,80px) clamp(16px,3vw,24px)", width: "100%", position: "relative", zIndex: 1 }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 40, alignItems: "center" }} className="hero-grid">
@@ -40,19 +41,19 @@ export default function Hero() {
               Available for new projects
             </div>
 
-            <h1 style={{ fontSize: "clamp(3rem,6vw,5.5rem)", fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.02em", marginBottom: 16, fontFamily: "Inter,sans-serif" }}>
+            <h1 style={{ fontSize: "clamp(3rem,6vw,5.5rem)", fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.02em", marginBottom: 16, fontFamily: "Inter,sans-serif", color: "var(--color-text-primary)" }}>
               Hi, I'm{" "}
               <span className="gradient-text">Dandy</span>
             </h1>
 
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20, minHeight: 40 }}>
               <span style={{ color: "#3b82f6", fontFamily: "monospace", fontSize: 20, fontWeight: 700 }}>$</span>
-              <span style={{ fontSize: "clamp(1.2rem,2.5vw,1.6rem)", fontWeight: 700, color: "#ffffff", fontFamily: "monospace" }}>
+              <span style={{ fontSize: "clamp(1.2rem,2.5vw,1.6rem)", fontWeight: 700, color: "var(--color-text-primary)", fontFamily: "monospace" }}>
                 {text}<span className="tcursor" />
               </span>
             </div>
 
-            <p style={{ color: "#a1a1aa", fontSize: 17, lineHeight: 1.7, maxWidth: 520, marginBottom: 36 }}>
+            <p style={{ color: "var(--color-text-secondary)", fontSize: 17, lineHeight: 1.7, maxWidth: 520, marginBottom: 36 }}>
               I build beautiful, performant web & mobile applications with clean code,
               smooth animations, and interfaces that feel great to use.
             </p>
@@ -71,17 +72,17 @@ export default function Hero() {
               </button>
             </div>
 
-            <div className="hero-stats" style={{ display: "flex", gap: 48, paddingTop: 32, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+            <div className="hero-stats" style={{ display: "flex", gap: 48, paddingTop: 32, borderTop: "1px solid var(--color-border)" }}>
               {[["4+", "Years Experience"], ["15+", "Projects Built"], ["10+", "Happy Clients"]].map(([n, l]) => (
                 <div key={l}>
-                  <div style={{ fontSize: 32, fontWeight: 900, color: "#fff", fontFamily: "Inter,sans-serif" }}>{n}</div>
-                  <div style={{ fontSize: 12, color: "#52525b", marginTop: 2, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.08em" }}>{l}</div>
+                  <div style={{ fontSize: 32, fontWeight: 900, color: "var(--color-text-primary)", fontFamily: "Inter,sans-serif" }}>{n}</div>
+                  <div style={{ fontSize: 12, color: "var(--color-text-muted)", marginTop: 2, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.08em" }}>{l}</div>
                 </div>
               ))}
             </div>
           </motion.div>
 
-          {/* Code card */}
+          {/* Code card — kept dark intentionally (code editor aesthetic) */}
           <motion.div
             initial={{ opacity: 0, x: 50, scale: 0.95 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -119,9 +120,9 @@ export default function Hero() {
         {/* Scroll indicator */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }}
           style={{ position: "absolute", bottom: 32, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-          <span style={{ fontSize: 10, color: "#52525b", letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 500 }}>Scroll</span>
+          <span style={{ fontSize: 10, color: "var(--color-text-muted)", letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 500 }}>Scroll</span>
           <motion.div animate={{ y: [0, 7, 0] }} transition={{ repeat: Infinity, duration: 1.7, ease: "easeInOut" }}
-            style={{ width: 1, height: 32, background: "linear-gradient(to bottom, #52525b, transparent)" }} />
+            style={{ width: 1, height: 32, background: "linear-gradient(to bottom, var(--color-text-muted), transparent)" }} />
         </motion.div>
       </div>
     </section>

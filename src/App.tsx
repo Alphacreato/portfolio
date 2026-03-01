@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
+import { ThemeProvider } from "./ThemeContext";
 import LoadingScreen from "./components/LoadingScreen";
 import Navbar   from "./components/Navbar";
 import Hero     from "./components/Hero";
@@ -12,7 +13,7 @@ import Footer   from "./components/Footer";
 export default function App() {
   const [loaded, setLoaded] = useState(false);
   return (
-    <>
+    <ThemeProvider>
       <AnimatePresence>
         {!loaded && <LoadingScreen onComplete={() => setLoaded(true)} />}
       </AnimatePresence>
@@ -29,6 +30,6 @@ export default function App() {
           <Footer />
         </>
       )}
-    </>
+    </ThemeProvider>
   );
 }

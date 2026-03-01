@@ -8,18 +8,18 @@ const CATS = [
 
 export default function Skills() {
   return (
-    <section id="skills" style={{ padding: "clamp(56px,9vw,100px) 0", background: "#050505" }}>
-      <div style={{ height: 1, background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent)" }} />
+    <section id="skills" style={{ padding: "clamp(56px,9vw,100px) 0", background: "var(--color-bg-alt)", transition: "background 0.3s" }}>
+      <div style={{ height: 1, background: "linear-gradient(90deg,transparent,var(--color-divider),transparent)" }} />
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "clamp(28px,7vw,80px) clamp(16px,3vw,24px) 0" }}>
 
         <motion.div initial={{ opacity:0,y:24 }} whileInView={{ opacity:1,y:0 }} viewport={{ once:true }} transition={{ duration:0.6 }}
           style={{ marginBottom: 56 }}>
           <span className="tag-badge" style={{ marginBottom: 16, display:"inline-flex" }}>My Stack</span>
           <div style={{ display:"flex", flexWrap:"wrap", alignItems:"flex-end", justifyContent:"space-between", gap:16 }}>
-            <h2 style={{ fontSize:"clamp(2rem,4vw,3rem)", fontWeight:900, letterSpacing:"-0.02em", fontFamily:"Inter,sans-serif" }}>
+            <h2 style={{ fontSize:"clamp(2rem,4vw,3rem)", fontWeight:900, letterSpacing:"-0.02em", fontFamily:"Inter,sans-serif", color:"var(--color-text-primary)" }}>
               Skills &amp; <span className="gradient-text">Technologies</span>
             </h2>
-            <p style={{ color:"#a1a1aa", fontSize:14, maxWidth:280 }}>Technologies I use to bring ideas to life.</p>
+            <p style={{ color:"var(--color-text-secondary)", fontSize:14, maxWidth:280 }}>Technologies I use to bring ideas to life.</p>
           </div>
         </motion.div>
 
@@ -36,11 +36,11 @@ export default function Skills() {
                   {cat.icon}
                 </div>
                 <div>
-                  <div style={{ fontWeight:700,color:"#fff",fontSize:16,fontFamily:"Inter,sans-serif" }}>{cat.title}</div>
-                  <div style={{ color:"#52525b",fontSize:12,marginTop:2 }}>{cat.skills.length} technologies</div>
+                  <div style={{ fontWeight:700,color:"var(--color-text-primary)",fontSize:16,fontFamily:"Inter,sans-serif" }}>{cat.title}</div>
+                  <div style={{ color:"var(--color-text-muted)",fontSize:12,marginTop:2 }}>{cat.skills.length} technologies</div>
                 </div>
               </div>
-              <div style={{ height:1,background:"rgba(255,255,255,0.07)",marginBottom:20 }} />
+              <div style={{ height:1,background:"var(--color-border)",marginBottom:20 }} />
               <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
                 {cat.skills.map((s, si) => (
                   <motion.span key={s}
