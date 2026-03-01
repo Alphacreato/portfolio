@@ -28,7 +28,7 @@ export default function About() {
   });
 
   return (
-    <section id="about" style={{ padding: "clamp(56px,9vw,100px) 0", background: "radial-gradient(ellipse 60% 60% at 90% 50%, rgba(59,130,246,0.05) 0%, transparent 70%), #0a0a0a" }}>
+    <section id="about" style={{ padding: "clamp(56px,9vw,100px) 0", overflow: "hidden", background: "radial-gradient(ellipse 60% 60% at 90% 50%, rgba(59,130,246,0.05) 0%, transparent 70%), #0a0a0a" }}>
       <div style={{ height: 1, background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent)" }} />
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "clamp(28px,7vw,80px) clamp(16px,3vw,24px) 0" }}>
 
@@ -36,7 +36,7 @@ export default function About() {
 
           {/* Visual */}
           <motion.div {...fade(0)}>
-            <div style={{ position: "relative", maxWidth: 400 }}>
+            <div style={{ position: "relative", maxWidth: 400, width: "100%" }}>
               <div style={{
                 aspectRatio: "1", borderRadius: 20,
                 background: "#111111",
@@ -85,7 +85,7 @@ export default function About() {
             <motion.div {...fade(0.1)}>
               <span className="tag-badge" style={{ marginBottom: 20, display: "inline-flex" }}>About Me</span>
             </motion.div>
-            <motion.h2 {...fade(0.15)} style={{ fontSize: "clamp(2rem,3.5vw,2.8rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: 24, fontFamily: "Inter,sans-serif" }}>
+            <motion.h2 {...fade(0.15)} style={{ fontSize: "clamp(1.4rem,3.5vw,2.8rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: 24, fontFamily: "Inter,sans-serif", overflowWrap: "break-word" }}>
               Crafting digital experiences <span className="gradient-text">that make an impact</span>
             </motion.h2>
             <motion.p {...fade(0.2)} style={{ color: "#a1a1aa", lineHeight: 1.75, marginBottom: 16 }}>
