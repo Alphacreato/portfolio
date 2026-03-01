@@ -304,6 +304,7 @@ body {
   .hero-stats       { gap: 28px !important; flex-wrap: wrap !important; }
   .app-card-inner   { flex-direction: column !important; align-items: center !important; }
   .screenshots-grid { grid-template-columns: repeat(4,1fr) !important; }
+  .strengths-grid   { grid-template-columns: 1fr !important; }
 }
 
 @media (min-width: 901px) {
