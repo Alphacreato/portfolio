@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="#090d16"/>
+  <!-- Modern stylized tech D logo -->
+  <path d="M160 120h110c75 0 130 50 130 136s-55 136-130 136H160V120z" fill="none" stroke="url(#g)" stroke-width="44" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M216 176h44c40 0 72 25 72 80s-32 80-72 80h-44V176z" fill="url(#g)"/>
+</svg>
