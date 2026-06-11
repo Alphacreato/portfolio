@@ -1,30 +1,43 @@
 import { motion } from "framer-motion";
 
-const STACK = [
-  { name: "React", icon: "⚛️" },
-  { name: "TypeScript", icon: "📘" },
-  { name: "React Native", icon: "📱" },
-  { name: "Tailwind CSS", icon: "🎨" },
-  { name: "JavaScript", icon: "💛" },
-  { name: "Framer Motion", icon: "✨" },
-  { name: "REST APIs", icon: "🔗" },
-  { name: "Git & GitHub", icon: "🐙" },
-  { name: "Figma", icon: "🖌️" },
+const TIMELINE = [
+  {
+    period: "2023 - Present",
+    role: "Co-founder & Full-Stack Engineer",
+    company: "Ounje Food Delivery Platform",
+    desc: "Designed the app UI and built the Node.js backend. Shipped the iOS customer app to the App Store. Created user digital wallets, live GPS rider tracking, and restaurant order alerts.",
+  },
+  {
+    period: "Jan 2025 – Nov 2025",
+    role: "NOC FTTH Backend Engineer",
+    company: "Timeless Telecoms",
+    desc: "Managed FTTH network setups using Huawei OLT systems. Provisioned customer ONUs, activated services, and resolved network issues like slow speeds, signal drops, and line faults.",
+  },
+  {
+    period: "2021 – 2024",
+    role: "Independent Full-Stack Developer",
+    company: "Freelance & Consulting",
+    desc: "Set up Linux VPS servers, configured databases (MongoDB), and deployed web dashboards and APIs to automate tasks for local businesses.",
+  },
 ];
 
-const FACTS = [
-  { icon: "📍", title: "Location",   val: "Lagos, Nigeria",          note: "Open to remote worldwide" },
-  { icon: "✉️", title: "Email",      val: "Ogbonnadandy5@gmail.com", note: "Reply within 24h" },
-  { icon: "💼", title: "Freelance",  val: "Available now",           note: "Accepting new projects" },
-  { icon: "⏳", title: "Experience", val: "4+ years",                note: "Frontend & Mobile" },
+const SKILLS = [
+  { name: "React Native & Expo", cat: "Mobile" },
+  { name: "Node.js & Express", cat: "Backend" },
+  { name: "MongoDB Database", cat: "Backend" },
+  { name: "Huawei OLT Configs", cat: "Infrastructure" },
+  { name: "Ubuntu VPS & SSH", cat: "Infrastructure" },
+  { name: "TypeScript & JS", cat: "Languages" },
+  { name: "WebSockets & APIs", cat: "Systems" },
+  { name: "Network Monitoring", cat: "Systems" },
 ];
 
 export default function About() {
   const fade = (delay = 0) => ({
-    initial: { opacity: 0, y: 32 },
+    initial: { opacity: 0, y: 24 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true },
-    transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] },
+    transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
   });
 
   return (
@@ -32,102 +45,88 @@ export default function About() {
       <div style={{ height: 1, background: "linear-gradient(90deg,transparent,var(--color-divider),transparent)" }} />
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "clamp(28px,7vw,80px) clamp(16px,3vw,24px) 0" }}>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }} className="about-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 70, alignItems: "start" }} className="about-grid">
 
-          {/* Visual */}
-          <motion.div {...fade(0)} style={{ minWidth: 0 }}>
-            <div style={{ position: "relative", maxWidth: 400, width: "100%", margin: "0 auto" }}>
-              <div style={{
-                aspectRatio: "1", borderRadius: 20,
-                background: "var(--color-surface)",
-                border: "1px solid var(--color-border)",
-                backgroundImage: "radial-gradient(var(--color-dot) 1px, transparent 1px)",
-                backgroundSize: "28px 28px",
-                display: "flex", flexDirection: "column",
-                alignItems: "center", justifyContent: "center", gap: 16,
-                position: "relative", overflow: "hidden",
-                transition: "background 0.3s, border-color 0.3s",
-              }}>
-                <div style={{ position: "absolute", width: 180, height: 180, borderRadius: "50%", background: "rgba(59,130,246,0.1)", filter: "blur(50px)" }} />
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg,transparent,rgba(59,130,246,0.5),transparent)" }} />
-
-                <div style={{ position: "relative", width: 100, height: 100, borderRadius: "50%", background: "rgba(59,130,246,0.1)", border: "2px solid rgba(59,130,246,0.3)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 40px rgba(59,130,246,0.2)", flexShrink: 0 }}>
-                  <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 50, height: 50, color: "rgba(59,130,246,0.45)" }}>
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                  </svg>
-                </div>
-
-                <div style={{ textAlign: "center", position: "relative" }}>
-                  <div style={{ fontWeight: 800, fontSize: 22, color: "var(--color-text-primary)", fontFamily: "Inter,sans-serif" }}>Dandy Ogbonna</div>
-                  <div style={{ color: "var(--color-text-secondary)", fontSize: 13, marginTop: 4 }}>Frontend & Mobile Developer</div>
-                  <div style={{ color: "var(--color-text-muted)", fontSize: 11, marginTop: 3 }}>Lagos, Nigeria 🇳🇬</div>
-                </div>
-
-                <div style={{ display: "flex", alignItems: "center", gap: 8, background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.2)", borderRadius: 8, padding: "8px 16px", position: "relative" }}>
-                  <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#4ade80" }} />
-                  <span style={{ color: "#86efac", fontSize: 12, fontWeight: 600 }}>Open to work</span>
-                </div>
-              </div>
-
-              <motion.div animate={{ y: [0, -8, 0] }} transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                className="float-badge"
-                style={{ position: "absolute", bottom: -20, right: -16, background: "var(--color-surface)", backdropFilter: "blur(12px)", border: "1px solid var(--color-border)", borderRadius: 14, padding: "14px 20px", boxShadow: "var(--shadow-card)" }}>
-                <div style={{ fontSize: 10, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 600 }}>Experience</div>
-                <div style={{ fontSize: 26, fontWeight: 900, color: "#3b82f6", marginTop: 2, fontFamily: "Inter,sans-serif" }}>4+ years</div>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Text */}
+          {/* Left Side: About Intro & Skills */}
           <div style={{ minWidth: 0 }}>
-            <motion.div {...fade(0.1)}>
+            <motion.div {...fade(0)}>
               <span className="tag-badge" style={{ marginBottom: 20, display: "inline-flex" }}>About Me</span>
             </motion.div>
-            <motion.h2 {...fade(0.15)} style={{ fontSize: "clamp(1.4rem,3.5vw,2.8rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: 24, fontFamily: "Inter,sans-serif", overflowWrap: "break-word", color: "var(--color-text-primary)" }}>
-              Crafting digital experiences <span className="gradient-text">that make an impact</span>
+            
+            <motion.h2 {...fade(0.05)} style={{ fontSize: "clamp(1.4rem,3.5vw,2.5rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: 24, fontFamily: "Inter,sans-serif", color: "var(--color-text-primary)" }}>
+              Building apps &amp; websites <span className="gradient-text">that solve daily problems</span>
             </motion.h2>
-            <motion.p {...fade(0.2)} style={{ color: "var(--color-text-secondary)", lineHeight: 1.75, marginBottom: 16 }}>
-              I'm a frontend & mobile app developer from Lagos, Nigeria, focused on building responsive,
-              user-friendly products with modern technology. I care about clean architecture,
-              thoughtful UI, and code that actually scales.
-            </motion.p>
-            <motion.p {...fade(0.25)} style={{ color: "var(--color-text-secondary)", lineHeight: 1.75, marginBottom: 32 }}>
-              When I'm not shipping features, I explore motion design, study system patterns,
-              and keep up with the React & React Native ecosystem.
+
+            <motion.p {...fade(0.1)} style={{ color: "var(--color-text-secondary)", lineHeight: 1.75, marginBottom: 18, fontSize: 14.5 }}>
+              I build mobile apps, responsive websites, and hook them up to backend servers. As the co-founder of OunjeFood, I built our delivery apps and Node.js backend. I also have experience working in network operations (NOC), setting up Huawei OLT systems, and helping field techs resolve fiber internet faults.
             </motion.p>
 
-            <motion.div {...fade(0.3)}>
+            <motion.p {...fade(0.15)} style={{ color: "var(--color-text-secondary)", lineHeight: 1.75, marginBottom: 32, fontSize: 14.5 }}>
+              I focus on writing code that works even when network connections are unstable—like managing live GPS tracking for riders on the road, setting up wallet deposit numbers, or configuring server networks to stay online.
+            </motion.p>
+
+            <motion.div {...fade(0.2)}>
               <div style={{ fontSize: 11, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.14em", fontWeight: 600, marginBottom: 16 }}>
-                Technologies I work with
+                Technical Tooling &amp; Infrastructure
               </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-                {STACK.map((s, i) => (
-                  <motion.div key={s.name}
-                    initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                    transition={{ duration: 0.35, delay: 0.3 + i * 0.05 }}
-                    className="skill-chip"
-                    style={{ display: "flex", alignItems: "center", gap: 7, padding: "8px 14px", borderRadius: 10, fontSize: 13, fontWeight: 500, cursor: "default" }}
-                  >
-                    <span style={{ fontSize: 14 }}>{s.icon}</span>
-                    {s.name}
-                  </motion.div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {SKILLS.map((s) => (
+                  <div key={s.name} className="skill-chip" style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 8, fontSize: 12.5, fontWeight: 500 }}>
+                    <span style={{ fontSize: 9, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>{s.cat}:</span>
+                    <span style={{ color: "var(--color-text-primary)" }}>{s.name}</span>
+                  </div>
                 ))}
               </div>
             </motion.div>
-
-            <motion.div {...fade(0.4)} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 28 }}>
-              {FACTS.map(({ icon, title, val, note }) => (
-                <div key={title} className="info-card">
-                  <span style={{ fontSize: 20, flexShrink: 0 }}>{icon}</span>
-                  <div style={{ minWidth: 0 }}>
-                    <div style={{ fontSize: 10, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 600 }}>{title}</div>
-                    <div style={{ fontSize: 13, color: "var(--color-text-primary)", fontWeight: 600, marginTop: 2, overflowWrap: "break-word", wordBreak: "break-all" }}>{val}</div>
-                    <div style={{ fontSize: 11, color: "var(--color-text-secondary)", marginTop: 1 }}>{note}</div>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
           </div>
+
+          {/* Right Side: Professional Timeline */}
+          <div style={{ minWidth: 0 }}>
+            <motion.div {...fade(0.1)}>
+              <div style={{ fontSize: 11, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.14em", fontWeight: 600, marginBottom: 20 }}>
+                Professional Operations History
+              </div>
+            </motion.div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 24, borderLeft: "2px solid var(--color-border)", paddingLeft: 20, position: "relative" }}>
+              {TIMELINE.map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  {...fade(0.15 + idx * 0.08)}
+                  style={{ position: "relative" }}
+                >
+                  {/* Timeline dot */}
+                  <div style={{
+                    position: "absolute",
+                    left: -27,
+                    top: 5,
+                    width: 12,
+                    height: 12,
+                    borderRadius: "50%",
+                    background: "var(--color-bg)",
+                    border: "2px solid #3b82f6",
+                  }} />
+
+                  <div style={{ fontSize: 11.5, color: "#3b82f6", fontWeight: 700, fontFamily: "monospace", marginBottom: 4 }}>
+                    {item.period}
+                  </div>
+                  
+                  <div style={{ fontWeight: 700, fontSize: 15.5, color: "var(--color-text-primary)", fontFamily: "Inter,sans-serif" }}>
+                    {item.role}
+                  </div>
+                  
+                  <div style={{ fontSize: 12.5, color: "var(--color-text-muted)", fontWeight: 500, marginBottom: 8 }}>
+                    {item.company}
+                  </div>
+
+                  <p style={{ color: "var(--color-text-secondary)", fontSize: 13, lineHeight: 1.6 }}>
+                    {item.desc}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

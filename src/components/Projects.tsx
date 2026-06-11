@@ -1,14 +1,34 @@
-import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-const APP_PROJECT = {
-  title: "Ounje Market",
-  subtitle: "Rider App",
+const OUNJE_FOOD = {
+  title: "OunjeFood",
+  subtitle: "Customer iOS App",
+  icon: "🍕",
+  accent: "#ef4444",
+  tagline: "Food Delivery App",
+  desc: "The customer app for our food delivery service. Features a digital wallet where customers get virtual account numbers to instantly fund their accounts. Built for fast menu loading and clean payments for over 100 active users.",
+  tags: ["React Native", "Expo", "Node.js", "MongoDB", "Virtual Accounts", "REST APIs"],
+  video: "/videos/customer-demo.MP4",
+  link: "https://apps.apple.com/ng/app/ounjefood/id6762204959",
+  screenshots: [
+    "/images/customer-screenshot-1.png",
+    "/images/customer-screenshot-2.png",
+    "/images/customer-screenshot-3.png",
+    "/images/customer-screenshot-4.png",
+  ],
+};
+
+const OUNJE_MARKET = {
+  title: "OunjeMarket",
+  subtitle: "Vendor & Rider Portal",
   icon: "🛵",
   accent: "#22c55e",
-  desc: "Built with React Native (Expo) + TypeScript, featuring real-time order tracking, OTP-verified delivery flow, push notification handling, and live earnings sync via RESTful API integration.",
-  tags: ["React Native", "Expo", "TypeScript", "REST APIs", "Push Notifications"],
+  tagline: "Vendor & Rider Apps",
+  desc: "The apps used by our delivery riders and partner restaurants. Features live GPS rider tracking, automatic reconnection when mobile networks drop, and custom sound alerts to notify vendors when new orders arrive on Android/iOS.",
+  tags: ["React Native", "Expo", "WebSockets", "Node.js", "Background Tasks", "TestFlight"],
   video: "/videos/app-demo.mp4",
+  link: "https://apps.apple.com/ng/app/ounjemarket/id6762347962",
   screenshots: [
     "/images/app-screenshot-1.png",
     "/images/app-screenshot-2.png",
@@ -16,60 +36,6 @@ const APP_PROJECT = {
     "/images/app-screenshot-4.png",
   ],
 };
-
-const PROJECTS = [
-  {
-    title: "Food Delivery",
-    icon: "🍱",
-    accent: "#ef4444",
-    desc: "Built with React + Next.js and TypeScript, featuring server-rendered pages, API-driven cart state management, dynamic menu rendering, and backend-integrated email notification flow.",
-    tags: ["React", "TypeScript", "Tailwind CSS", "Next.js"],
-    link: "https://ounjefood.com",
-    github: "https://github.com/Alphacreato/food-delivery-website",
-  },
-  {
-    title: "Flash Sales",
-    icon: "👟",
-    accent: "#3b82f6",
-    desc: "Vanilla HTML/CSS/JS landing with responsive grid layout, interactive size selector, and structured checkout UI — zero frameworks, full control.",
-    tags: ["HTML", "CSS", "JavaScript", "Responsive"],
-    link: "https://flashsales.vercel.app/",
-    github: "https://github.com/Alphacreato/flash-sales-landing-page",
-  },
-  {
-    title: "Tasty Bites",
-    icon: "🍽️",
-    accent: "#f97316",
-    desc: "React SPA styled with Tailwind CSS, featuring component-driven menu grid, responsive food photography layout, and modular UI architecture for dynamic ordering flow.",
-    tags: ["React", "Tailwind CSS", "Responsive Design"],
-    link: "https://tasty-bites-pi.vercel.app/",
-    github: "https://github.com/Alphacreato/tasty-bites-web-app",
-  },
-  {
-    title: "AlphaAI",
-    icon: "🤖",
-    accent: "#8b5cf6",
-    desc: "React + TypeScript interface integrated with an AI backend, built on reusable component architecture with clean state management and dynamic API-driven UI rendering.",
-    tags: ["React", "TypeScript", "AI Integration"],
-    link: "https://alphai-dandys-projects-8c812098.vercel.app/",
-    github: "https://github.com/Alphacreato/css-ui-experiments",
-  },
-  {
-    title: "Brookdale University",
-    icon: "🎓",
-    accent: "#10b981",
-    desc: "Multi-page HTML/CSS/JS site with structured information hierarchy, dynamic course listings, scholarship detail pages, and newsletter registration with form validation.",
-    tags: ["HTML", "CSS", "JavaScript", "Multi-page"],
-    link: "https://university-rosy.vercel.app/",
-    github: "https://github.com/Alphacreato/university-website-ui",
-  },
-];
-
-const GitHubIcon = () => (
-  <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-  </svg>
-);
 
 const ExternalIcon = () => (
   <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -83,13 +49,23 @@ function PhoneMockup({ video }: { video: string }) {
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
+    
+    // Explicit initial play call fallback
+    el.play().catch(() => {});
+
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) el.play().catch(() => {}); },
-      { threshold: 0.3 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.play().catch(() => {});
+        } else {
+          el.pause();
+        }
+      },
+      { threshold: 0.1 } // Trigger when at least 10% of the mockup is visible
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [video]);
 
   return (
     <div style={{
@@ -98,8 +74,16 @@ function PhoneMockup({ video }: { video: string }) {
       boxShadow: "0 24px 60px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.07)",
     }}>
       <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 52, height: 18, background: "#0f0f0f", borderRadius: "0 0 12px 12px", zIndex: 3 }} />
-      <video ref={videoRef} src={video} muted loop playsInline preload="auto"
-        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+      <video
+        ref={videoRef}
+        src={video}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+      />
     </div>
   );
 }
@@ -112,9 +96,136 @@ function ScreenshotThumb({ src }: { src: string }) {
   );
 }
 
-export default function Projects() {
-  const { accent } = APP_PROJECT;
+function TerminalMockup() {
+  const [activeTab, setActiveTab] = useState<"noc" | "vps">("noc");
 
+  return (
+    <div style={{
+      background: "#0d0d0d",
+      borderRadius: "16px",
+      border: "1px solid rgba(255, 255, 255, 0.08)",
+      overflow: "hidden",
+      fontFamily: "monospace",
+      color: "#f8f8f2",
+      boxShadow: "0 24px 50px rgba(0,0,0,0.6)",
+      width: "100%",
+      minHeight: 290,
+      display: "flex",
+      flexDirection: "column",
+    }}>
+      {/* Header */}
+      <div style={{
+        background: "#161616",
+        padding: "12px 16px",
+        borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 12,
+        flexWrap: "wrap",
+      }}>
+        <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
+          {["#ff5f57", "#febc2e", "#28c840"].map((c, idx) => (
+            <div key={idx} style={{ width: 11, height: 11, borderRadius: "50%", background: c }} />
+          ))}
+        </div>
+        <div style={{ display: "flex", gap: 4 }}>
+          <button
+            onClick={() => setActiveTab("noc")}
+            style={{
+              padding: "6px 12px",
+              background: activeTab === "noc" ? "#0d0d0d" : "transparent",
+              color: activeTab === "noc" ? "#93c5fd" : "#71717a",
+              border: activeTab === "noc" ? "1px solid rgba(255,255,255,0.06)" : "none",
+              borderBottom: activeTab === "noc" ? "1px solid transparent" : "none",
+              borderRadius: "6px 6px 0 0",
+              cursor: "pointer",
+              fontSize: 11.5,
+              fontWeight: 600,
+              fontFamily: "monospace",
+            }}
+          >
+            noc-monitor.sh
+          </button>
+          <button
+            onClick={() => setActiveTab("vps")}
+            style={{
+              padding: "6px 12px",
+              background: activeTab === "vps" ? "#0d0d0d" : "transparent",
+              color: activeTab === "vps" ? "#93c5fd" : "#71717a",
+              border: activeTab === "vps" ? "1px solid rgba(255,255,255,0.06)" : "none",
+              borderBottom: activeTab === "vps" ? "1px solid transparent" : "none",
+              borderRadius: "6px 6px 0 0",
+              cursor: "pointer",
+              fontSize: 11.5,
+              fontWeight: 600,
+              fontFamily: "monospace",
+            }}
+          >
+            vps-ssh-terminal
+          </button>
+        </div>
+        <span style={{ fontSize: 10, color: "#52525b" }} className="hidden-mobile">root@dandy-infrastructure</span>
+      </div>
+
+      {/* Terminal Content */}
+      <div style={{ padding: 20, flex: 1, fontSize: 12.5, lineHeight: 1.6, display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>
+        <AnimatePresence mode="wait">
+          {activeTab === "noc" ? (
+            <motion.div
+              key="noc"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+            >
+              <span style={{ color: "#a1a1aa" }}># Huawei OLT Provisioning & Alarm Diagnostics</span>
+              <br />
+              <span style={{ color: "#38bdf8" }}>$ NOC_ENVIRONMENT --check-nodes --detail</span>
+              <br />
+              <div style={{ marginLeft: 12, marginTop: 8 }}>
+                <div>Node status: <span style={{ color: "#4ade80", fontWeight: 700 }}>ONLINE</span></div>
+                <div>Configured Hardware: Huawei GPON OLT Core (8 Ports Active)</div>
+                <div>Fiber Infrastructure subscribers: <span style={{ color: "#fcd34d" }}>1424 subscribers active</span></div>
+                <div>Active Alarms: <span style={{ color: "#4ade80" }}>0 alarms (Clear)</span></div>
+                <div>Link Loss Tolerance: Optimal (-18.2 dBm to -22.5 dBm range)</div>
+                <div style={{ color: "#71717a", marginTop: 8 }}>Provisioning client: LGS-SUB-920... [SUCCESS]</div>
+                <div style={{ color: "#71717a" }}>Optical link configuration verified... [SUCCESS]</div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="vps"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+            >
+              <span style={{ color: "#71717a" }}># SSH secure connection to Ubuntu VPS hosting instance</span>
+              <br />
+              <span style={{ color: "#38bdf8" }}>$ ssh admin@vps-node-1.ounjefood.com</span>
+              <br />
+              <div style={{ marginTop: 6 }}>Welcome to Ubuntu 22.04 LTS (GNU/Linux 5.15.0-x86_64)</div>
+              <span style={{ color: "#38bdf8" }}>$ pm2 status</span>
+              <div style={{ color: "#a1a1aa", marginTop: 4, whiteSpace: "pre-wrap", overflowX: "auto" }}>
+                {`┌────┬─────────────────┬──────────┬────────┬──────────┬──────────┐
+│ id │ name            │ mode     │ status │ cpu      │ memory   │
+├────┼─────────────────┼──────────┼────────┼──────────┼──────────┤
+│ 0  │ ounje-backend   │ cluster  │ online │ 0.2%     │ 78.4 MB  │
+└────┴─────────────────┴──────────┴────────┴──────────┴──────────┘`}
+              </div>
+              <span style={{ color: "#38bdf8" }}>$ mongosh --eval "db.serverStatus().ok"</span>
+              <br />
+              <span style={{ color: "#4ade80" }}>1 (Connected and ready - MongoDB Atlas backend cluster)</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
+export default function Projects() {
   return (
     <section id="projects" style={{ padding: "clamp(56px,9vw,100px) 0", background: "var(--color-bg)", transition: "background 0.3s" }}>
       <div style={{ height: 1, background: "linear-gradient(90deg,transparent,var(--color-divider),transparent)" }} />
@@ -122,113 +233,186 @@ export default function Projects() {
 
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
           style={{ marginBottom: 56 }}>
-          <span className="tag-badge" style={{ marginBottom: 16, display: "inline-flex" }}>Portfolio</span>
+          <span className="tag-badge" style={{ marginBottom: 16, display: "inline-flex" }}>Production Systems</span>
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: 16 }}>
             <h2 style={{ fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 900, letterSpacing: "-0.02em", fontFamily: "Inter,sans-serif", color: "var(--color-text-primary)" }}>
-              Selected <span className="gradient-text">Projects</span>
+              Featured <span className="gradient-text">Systems</span>
             </h2>
-            <p style={{ color: "var(--color-text-secondary)", fontSize: 14, maxWidth: 260 }}>Things I've built and shipped.</p>
+            <p style={{ color: "var(--color-text-secondary)", fontSize: 14, maxWidth: 320 }}>Real-world solutions engineered to solve business problems and scale.</p>
           </div>
         </motion.div>
 
-        {/* ── Featured App Card ── */}
+        {/* ── FLAGSHIP 1: OUNJEFOOD ── */}
         <motion.div
           initial={{ opacity: 0, y: 44 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="project-card" style={{ marginBottom: 20 }}
+          className="project-card" style={{ marginBottom: 44 }}
         >
-          <div style={{ height: 3, background: `linear-gradient(90deg,${accent}90,transparent)` }} />
+          <div style={{ height: 3, background: `linear-gradient(90deg,${OUNJE_FOOD.accent}90,transparent)` }} />
           <div style={{ padding: "clamp(20px,3vw,32px)" }}>
             <div className="app-card-inner" style={{ display: "flex", gap: 36, alignItems: "center" }}>
-              <PhoneMockup video={APP_PROJECT.video} />
+              <PhoneMockup video={OUNJE_FOOD.video} />
 
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16, flexWrap: "wrap" }}>
-                  <div style={{ width: 48, height: 48, borderRadius: 14, background: `${accent}15`, border: `1px solid ${accent}30`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>
-                    {APP_PROJECT.icon}
+                  <div style={{ width: 48, height: 48, borderRadius: 14, background: `${OUNJE_FOOD.accent}15`, border: `1px solid ${OUNJE_FOOD.accent}30`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>
+                    {OUNJE_FOOD.icon}
                   </div>
                   <div>
-                    <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "2px 10px", borderRadius: 999, background: `${accent}15`, border: `1px solid ${accent}30`, color: accent, fontSize: 11, fontWeight: 600, marginBottom: 4 }}>
-                      Mobile App
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "2px 10px", borderRadius: 999, background: `${OUNJE_FOOD.accent}15`, border: `1px solid ${OUNJE_FOOD.accent}30`, color: OUNJE_FOOD.accent, fontSize: 11, fontWeight: 600, marginBottom: 4 }}>
+                      Live B2C Customer Portal
                     </div>
                     <div style={{ fontWeight: 700, color: "var(--color-text-primary)", fontSize: 18, fontFamily: "Inter,sans-serif", lineHeight: 1 }}>
-                      {APP_PROJECT.title}
+                      {OUNJE_FOOD.title}
                     </div>
                   </div>
                 </div>
 
                 <div style={{ height: 1, background: "var(--color-border)", marginBottom: 16 }} />
 
-                <p style={{ color: "var(--color-text-secondary)", fontSize: 14, lineHeight: 1.75, marginBottom: 20 }}>
-                  {APP_PROJECT.desc}
+                <p style={{ color: "var(--color-text-secondary)", fontSize: 14.5, lineHeight: 1.75, marginBottom: 20 }}>
+                  {OUNJE_FOOD.desc}
                 </p>
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 20 }} className="screenshots-grid">
-                  {APP_PROJECT.screenshots.map((src, i) => (
+                  {OUNJE_FOOD.screenshots.map((src, i) => (
                     <ScreenshotThumb key={i} src={src} />
                   ))}
                 </div>
 
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  {APP_PROJECT.tags.map(tag => (
-                    <span key={tag} style={{ fontSize: 11, padding: "4px 10px", borderRadius: 6, fontWeight: 600, background: `${accent}12`, color: accent, border: `1px solid ${accent}25` }}>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 24 }}>
+                  {OUNJE_FOOD.tags.map(tag => (
+                    <span key={tag} style={{ fontSize: 11, padding: "4px 10px", borderRadius: 6, fontWeight: 600, background: `${OUNJE_FOOD.accent}12`, color: OUNJE_FOOD.accent, border: `1px solid ${OUNJE_FOOD.accent}25` }}>
                       {tag}
                     </span>
                   ))}
+                </div>
+
+                <div style={{ display: "flex", alignItems: "center", gap: 12, borderTop: "1px solid var(--color-border)", paddingTop: 16, flexWrap: "wrap" }}>
+                  <a href={OUNJE_FOOD.link} target="_blank" rel="noopener noreferrer"
+                    style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "8px 16px", borderRadius: 8, background: `${OUNJE_FOOD.accent}15`, border: `1px solid ${OUNJE_FOOD.accent}30`, color: OUNJE_FOOD.accent, fontSize: 12.5, fontWeight: 600, textDecoration: "none", transition: "all 0.2s" }}>
+                    <ExternalIcon /> iOS App Store
+                  </a>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: "var(--color-text-muted)" }}>
+                    Android version coming soon
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* ── Regular Project Grid ── */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }} className="projects-grid">
-          {PROJECTS.map((p, i) => (
-            <motion.div key={p.title}
-              initial={{ opacity: 0, y: 44 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              transition={{ duration: 0.65, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="project-card"
-            >
-              <div style={{ height: 3, background: `linear-gradient(90deg,${p.accent}90,transparent)` }} />
-              <div style={{ padding: 28, display: "flex", flexDirection: "column", height: "calc(100% - 3px)" }}>
-                {/* Header */}
-                <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16 }}>
-                  <div style={{ width: 48, height: 48, borderRadius: 14, background: `${p.accent}15`, border: `1px solid ${p.accent}25`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>
-                    {p.icon}
+        {/* ── FLAGSHIP 2: OUNJEMARKET ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 44 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="project-card" style={{ marginBottom: 44 }}
+        >
+          <div style={{ height: 3, background: `linear-gradient(90deg,${OUNJE_MARKET.accent}90,transparent)` }} />
+          <div style={{ padding: "clamp(20px,3vw,32px)" }}>
+            <div className="app-card-inner" style={{ display: "flex", gap: 36, alignItems: "center" }}>
+              <PhoneMockup video={OUNJE_MARKET.video} />
+
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16, flexWrap: "wrap" }}>
+                  <div style={{ width: 48, height: 48, borderRadius: 14, background: `${OUNJE_MARKET.accent}15`, border: `1px solid ${OUNJE_MARKET.accent}30`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>
+                    {OUNJE_MARKET.icon}
                   </div>
-                  <div style={{ fontWeight: 700, color: "var(--color-text-primary)", fontSize: 17, fontFamily: "Inter,sans-serif" }}>{p.title}</div>
+                  <div>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "2px 10px", borderRadius: 999, background: `${OUNJE_MARKET.accent}15`, border: `1px solid ${OUNJE_MARKET.accent}30`, color: OUNJE_MARKET.accent, fontSize: 11, fontWeight: 600, marginBottom: 4 }}>
+                      Logistics &amp; Rider App
+                    </div>
+                    <div style={{ fontWeight: 700, color: "var(--color-text-primary)", fontSize: 18, fontFamily: "Inter,sans-serif", lineHeight: 1 }}>
+                      {OUNJE_MARKET.title}
+                    </div>
+                  </div>
                 </div>
 
-                <div style={{ height: 1, background: "var(--color-border)", marginBottom: 14 }} />
+                <div style={{ height: 1, background: "var(--color-border)", marginBottom: 16 }} />
 
-                {/* Description */}
-                <p style={{ color: "var(--color-text-secondary)", fontSize: 13.5, lineHeight: 1.7, marginBottom: 16, flex: 1 }}>{p.desc}</p>
+                <p style={{ color: "var(--color-text-secondary)", fontSize: 14.5, lineHeight: 1.75, marginBottom: 20 }}>
+                  {OUNJE_MARKET.desc}
+                </p>
 
-                {/* Tags */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
-                  {p.tags.map(tag => (
-                    <span key={tag} style={{ fontSize: 11, padding: "4px 10px", borderRadius: 6, fontWeight: 600, background: `${p.accent}12`, color: p.accent, border: `1px solid ${p.accent}22` }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 20 }} className="screenshots-grid">
+                  {OUNJE_MARKET.screenshots.map((src, i) => (
+                    <ScreenshotThumb key={i} src={src} />
+                  ))}
+                </div>
+
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 24 }}>
+                  {OUNJE_MARKET.tags.map(tag => (
+                    <span key={tag} style={{ fontSize: 11, padding: "4px 10px", borderRadius: 6, fontWeight: 600, background: `${OUNJE_MARKET.accent}12`, color: OUNJE_MARKET.accent, border: `1px solid ${OUNJE_MARKET.accent}25` }}>
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                {/* Links */}
-                <div style={{ display: "flex", alignItems: "center", gap: 6, paddingTop: 14, borderTop: "1px solid var(--color-border)" }}>
-                  <a href={p.link} target="_blank" rel="noopener noreferrer"
-                    style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "6px 12px", borderRadius: 7, background: `${p.accent}12`, border: `1px solid ${p.accent}25`, color: p.accent, fontSize: 12, fontWeight: 600, textDecoration: "none", transition: "all 0.2s" }}>
-                    <ExternalIcon /> Live Demo
+                <div style={{ display: "flex", alignItems: "center", gap: 12, borderTop: "1px solid var(--color-border)", paddingTop: 16, flexWrap: "wrap" }}>
+                  <a href={OUNJE_MARKET.link} target="_blank" rel="noopener noreferrer"
+                    style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "8px 16px", borderRadius: 8, background: `${OUNJE_MARKET.accent}15`, border: `1px solid ${OUNJE_MARKET.accent}30`, color: OUNJE_MARKET.accent, fontSize: 12.5, fontWeight: 600, textDecoration: "none", transition: "all 0.2s" }}>
+                    <ExternalIcon /> iOS App Store
                   </a>
-                  <span style={{ color: "var(--color-border-light)", fontSize: 14, userSelect: "none" }}>|</span>
-                  <a href={p.github} target="_blank" rel="noopener noreferrer"
-                    style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "6px 12px", borderRadius: 7, background: "var(--color-card)", border: "1px solid var(--color-border)", color: "var(--color-text-secondary)", fontSize: 12, fontWeight: 600, textDecoration: "none", transition: "all 0.2s" }}>
-                    <GitHubIcon /> GitHub Code
-                  </a>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: "var(--color-text-muted)" }}>
+                    Android version coming soon
+                  </span>
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ── PROJECT 3: NOC & VPS INFRASTRUCTURE ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 44 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="project-card"
+        >
+          <div style={{ height: 3, background: "linear-gradient(90deg, #38bdf890, transparent)" }} />
+          <div style={{ padding: "clamp(20px,3vw,32px)" }}>
+            <div className="app-card-inner" style={{ display: "flex", gap: 36, alignItems: "stretch" }}>
+              
+              <div style={{ flex: 1.2, minWidth: 0, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16, flexWrap: "wrap" }}>
+                    <div style={{ width: 48, height: 48, borderRadius: 14, background: "rgba(56,189,248,0.15)", border: "1px solid rgba(56,189,248,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>
+                      🖥️
+                    </div>
+                    <div>
+                      <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "2px 10px", borderRadius: 999, background: "rgba(56,189,248,0.15)", border: "1px solid rgba(56,189,248,0.3)", color: "#38bdf8", fontSize: 11, fontWeight: 600, marginBottom: 4 }}>
+                        Systems Engineering &amp; Operations
+                      </div>
+                      <div style={{ fontWeight: 700, color: "var(--color-text-primary)", fontSize: 18, fontFamily: "Inter,sans-serif", lineHeight: 1 }}>
+                        Network Operations &amp; Server Infrastructure
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ height: 1, background: "var(--color-border)", marginBottom: 16 }} />
+
+                  <p style={{ color: "var(--color-text-secondary)", fontSize: 14.5, lineHeight: 1.75, marginBottom: 20 }}>
+                    Experience managing FTTH network operations at Timeless Telecoms, configuring GPON Huawei OLT systems and provisioning ONUs. Diagnosed fiber links, resolved signals loss, and collaborated with field teams. Builds automated Node.js deploys on Linux VPS server clusters.
+                  </p>
+                </div>
+
+                <div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
+                    {["Huawei OLT", "Ubuntu Linux VPS", "SSH Scripting", "PM2 Lifecycle", "MongoDB Admin", "Network Monitoring"].map(tag => (
+                      <span key={tag} style={{ fontSize: 11, padding: "4px 10px", borderRadius: 6, fontWeight: 600, background: "rgba(56,189,248,0.12)", color: "#38bdf8", border: "1px solid rgba(56,189,248,0.2)" }}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ flex: 1, minWidth: 280, display: "flex", alignItems: "center" }}>
+                <TerminalMockup />
+              </div>
+
+            </div>
+          </div>
+        </motion.div>
 
       </div>
     </section>
