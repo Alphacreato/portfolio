@@ -19,6 +19,8 @@ export default function Contact() {
         },
         body: JSON.stringify({
           access_key: import.meta.env.VITE_WEB3FORMS_KEY || "YOUR_ACCESS_KEY_HERE",
+          from_name: "Portfolio Contact Form",
+          subject: "New Message from Portfolio Website",
           name: form.name,
           email: form.email,
           message: form.message,
